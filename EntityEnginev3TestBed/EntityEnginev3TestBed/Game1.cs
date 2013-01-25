@@ -1,13 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace EntityEnginev3TestBed
 {
@@ -16,9 +9,9 @@ namespace EntityEnginev3TestBed
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private TestGame _tg;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -46,7 +39,7 @@ namespace EntityEnginev3TestBed
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            _tg = new TestGame(this, graphics, spriteBatch);
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,7 +63,7 @@ namespace EntityEnginev3TestBed
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            _tg.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -81,10 +74,7 @@ namespace EntityEnginev3TestBed
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            _tg.Draw();
             base.Draw(gameTime);
         }
     }
